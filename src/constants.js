@@ -3,4 +3,5 @@ export const googleMapURL = `https://maps.googleapis.com/maps/api/js?key=${googl
 
 export const lineColors = ['blue', 'yellow', 'green', 'red', 'purple', 'blue', 'yellow', 'green', 'red', 'purple'];
 export const defaultZoom = 17;
+export const droneSimulationSpeed = 1000;
 export const defaultDataFile = 'data.json';

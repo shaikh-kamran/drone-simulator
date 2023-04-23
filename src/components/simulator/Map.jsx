@@ -3,24 +3,12 @@ import {
     withScriptjs,
     withGoogleMap,
     GoogleMap,
-    Marker,
-    Polyline,
-    InfoWindow
+    Polyline
 } from 'react-google-maps';
+import CustomMarker from './CustomMarker';
 
 const Map = withScriptjs(
     withGoogleMap((props) => {
-
-        const droneIcon = { url: 'src/assets/drone.svg' };
-        const circleIcon = (index) => {
-            return { path: google.maps.SymbolPath.CIRCLE, strokeWeight: 2, fillOpacity: 1, strokeColor: props.lineColors[index % 10], fillColor: props.lineColors[index % 10] };
-        }
-
-        const formatTime = (ts) => {
-            const date = new Date(ts);
-            return date.toLocaleString();
-        }
-
         return (
             <GoogleMap
                 defaultCenter={props.defaultCenter}
@@ -45,22 +33,17 @@ const Map = withScriptjs(
 
                 {props.places.map((place, index) => {
                     return (<div key={index}>
-                        {place.map((marker, j) => {
-                            return (<div key={index + j}>
-                                <Marker position={marker}
-                                    icon={j === place.length - 1 ? droneIcon : circleIcon(index)}
-                                    onClick={() => props.openInfoWindow(index, j)}
-                                >
-                                    {marker.isInfoOpen || j === place.length - 1 ?
-                                        <InfoWindow>
-                                            <div style={{ 'color': 'black' }}>
-                                                <div> {marker.lat},</div>
-                                                <div> {marker.lng} at</div>
-                                                <div>{formatTime(marker.timestamp)}</div>
-                                            </div>
-                                        </InfoWindow>
-                                        : null}
-                                </Marker>
+                        {place.map((marker, subindex) => {
+                            return (<div key={index + subindex}>
+                                <CustomMarker
+                                    lastMarker={subindex === place.length - 1}
+                                    openInfoWindow={props.openInfoWindow}
+                                    lineColors={props.lineColors}
+                                    isInfoOpen={marker.isInfoOpen}
+                                    marker={marker}
+                                    subindex={subindex}
+                                    index={index}
+                                />
                             </div>)
                         })}
                     </div>)

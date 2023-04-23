@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import Map from './Map';
 import ControlPanel from '../control-panel/ControlPanel';
-import { lineColors, googleMapURL, defaultZoom, defaultDataFile } from '../../constants';
+import { droneSimulationSpeed, lineColors, googleMapURL, defaultZoom, defaultDataFile } from '../../constants';
 import styles from './simulator.module.css';
 
 var timer = [];
 
 const Simulator = () => {
 
-    const [simulationSpeed, setSimulationSpeed] = useState(1000);
+    const [simulationSpeed, setSimulationSpeed] = useState(droneSimulationSpeed);
     const [droneState, setDroneState] = useState(0);
     const [places, setPlaces] = useState([]);
     const [mapMarkers, setMapMarkers] = useState([]);
